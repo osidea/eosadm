@@ -17,6 +17,8 @@ class CreateSystemConfigGroupTable extends Migration
             $table->increments('id')->unique();
             $table->string('name', 200); //
             $table->string('key', 200); //
+            $table->string('created_at', 100)->nullable();
+            $table->string('updated_at', 100)->nullable();
         });
     }
 

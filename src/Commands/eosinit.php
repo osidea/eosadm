@@ -79,6 +79,7 @@ class eosinit extends Command
                         'status' => 99 //总管理员
                     ]
                 );
+
                 $config = [
                     ['name' => 'site_name', 'type' => 1, 'title' => '站点名称', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '站点主标题', 'lock' => 1],
                     ['name' => 'site_keyword', 'type' => 2, 'title' => '站点关键字', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '用于SEO优化', 'lock' => 1],
@@ -101,6 +102,7 @@ class eosinit extends Command
                 foreach($auth as $value){
                     DS('auth_rule', $value);
                 }
+
                 if($create_user['errcode'] == 0){
                     file_put_contents(base_path('eosadm.lock'), time());
                     $this->info('========================================================');
