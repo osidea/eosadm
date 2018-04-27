@@ -89,8 +89,14 @@ class eosinit extends Command
                 foreach($config as $value){
                     DS('system_config', $value);
                 }
-                $auth = [
+                $config_group = [
                     ['id' => 1, 'pid' => 0, 'name' => '管理控制台', 'c' => 'index', 'f' => 'index', 'o' => '', 'auth' => 0, 'status' => 1],
+                ];
+                foreach($config_group as $value){
+                    DS('system_config_group', $value);
+                }
+                $auth = [
+                    ['id' => 1, 'name' => '站点配置', 'key' => 'site'],
                 ];
                 foreach($auth as $value){
                     DS('auth_rule', $value);
