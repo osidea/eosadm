@@ -90,13 +90,13 @@ class eosinit extends Command
                     DS('system_config', $value);
                 }
                 $config_group = [
-                    ['id' => 1, 'pid' => 0, 'name' => '管理控制台', 'c' => 'index', 'f' => 'index', 'o' => '', 'auth' => 0, 'status' => 1],
+                    ['id' => 1, 'name' => '站点配置', 'key' => 'site'],
                 ];
                 foreach($config_group as $value){
                     DS('system_config_group', $value);
                 }
                 $auth = [
-                    ['id' => 1, 'name' => '站点配置', 'key' => 'site'],
+                    ['id' => 1, 'pid' => 0, 'name' => '管理控制台', 'c' => 'index', 'f' => 'index', 'o' => '', 'auth' => 0, 'status' => 1],
                 ];
                 foreach($auth as $value){
                     DS('auth_rule', $value);
