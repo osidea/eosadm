@@ -45,10 +45,10 @@ class eosinit extends Command
     {
         if($this->argument('key') != 'dev'){
             if(file_exists(base_path('eosadm.lock'))){
-                $this->info('-------------------------------------------------------------');
+                $this->info('========================================================');
                 $this->info('> 程序已初始化完成!!');
                 $this->info('> 重新初始化程序,请删除根目录下的eosadm.lock文件');
-                $this->info('-------------------------------------------------------------');
+                $this->info('========================================================');
                 exit;
             }
         }
@@ -103,37 +103,36 @@ class eosinit extends Command
                 }
                 if($create_user['errcode'] == 0){
                     file_put_contents(base_path('eosadm.lock'), time());
-                    $this->info('-------------------------------------------------------------');
+                    $this->info('========================================================');
                     $this->info('> 程序安装完成!!');
                     $this->info('> EOS-Panel:http://yourdomain/eosadm');
                     $this->info('> username:'. $admin);
                     $this->info('> password:'. $this -> password);
-                    $this->info('-------------------------------------------------------------');
+                    $this->info('========================================================');
                 } else {
-                    $this->info('-------------------------------------------------------------');
+                    $this->info('========================================================');
                     $this->info('> 配置管理员错误');
                     $this->info('> '. $create_user['errcode']. ' '. $create_user['message']);
                     $this->info('> 请重新运行 php artisan eos:init admin 配置管理员');
-                    $this->info('-------------------------------------------------------------');
+                    $this->info('========================================================');
                 }
 
                 break;
             case 'publish':
                 $this->call('vendor:publish', ['--tag' => 'eosadm', '--force' => true]);
                 $this->call('eos:init', ['step' => 'admin']);
-                $this->info('-------------------------------------------------------------');
                 break;
             case 'db':
+                $this->info('========================================================');
                 clearDir(database_path('/migrations'));
                 $this->call('migrate');
 //                $this->call('migrate:fresh');
                 sleep(1);
-                $this->info('-------------------------------------------------------------');
+                $this->info('========================================================');
                 $this->info('> 数据安装完成!!');
-                $this->info('-------------------------------------------------------------');
+                $this->info('========================================================');
                 $this->call('key:generate');
                 $this->call('eos:init', ['step' => 'publish']);
-                $this->info('-------------------------------------------------------------');
 
                 break;
             default:
@@ -141,11 +140,11 @@ class eosinit extends Command
                 $this->setDb($bar);
                 $bar->finish();
                 $this->info('');
-                $this->info('-------------------------------------------------------------');
+                $this->info('========================================================');
                 $this->info('> 数据库配置成功!!');
-                $this->info('-------------------------------------------------------------');
+                $this->info('');
                 $this->info('> 请运行 php artisan eos:init db 安装数据');
-                $this->info('-------------------------------------------------------------');
+                $this->info('========================================================');
                 break;
         }
 
@@ -163,9 +162,9 @@ class eosinit extends Command
         }
 
         if($password != $repassword){
-            $this->info('-------------------------------------------------------------');
+            $this->info('========================================================');
             $this->info('> 两次输入的密码不一致,请重新输入');
-            $this->info('-------------------------------------------------------------');
+            $this->info('========================================================');
             $this->setAdm();
         } else {
             $this -> password = $password;
@@ -206,14 +205,14 @@ class eosinit extends Command
         if (!$dbprefix) {
             $dbprefix = 'os_';
         }
-        $this->info('-------------------------------------------------------------');
-        $this->info('配置数据库地址: ' . $dbhost);
-        $this->info('配置数据库端口: ' . $dbport);
-        $this->info('配置数据库名: ' . $dbname);
-        $this->info('配置数据库用户名: ' . $dbuser);
-        $this->info('配置数据库密码: ' . $dbpassword);
-        $this->info('配置数据表前缀: ' . $dbprefix);
-        $this->info('-------------------------------------------------------------');
+        $this->info('========================================================');
+        $this->info('> 数据库地址: ' . $dbhost);
+        $this->info('> 数据库端口: ' . $dbport);
+        $this->info('> 数据库名: ' . $dbname);
+        $this->info('> 数据库用户名: ' . $dbuser);
+        $this->info('> 数据库密码: ' . $dbpassword);
+        $this->info('> 数据表前缀: ' . $dbprefix);
+        $this->info('========================================================');
 
         if ($this->confirm('是否确认以上数据库配置?')) {
             $bar->advance();
@@ -238,9 +237,9 @@ class eosinit extends Command
 return [
 
     /*
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     | Default Database Connection Name
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     |
     | Here you may specify which of the database connections below you wish
     | to use as your default connection for all database work. Of course
@@ -251,9 +250,9 @@ return [
     'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     | Database Connections
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     |
     | Here are each of the database connections setup for your application.
     | Of course, examples of configuring each database platform that is
@@ -316,9 +315,9 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     | Migration Repository Table
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     |
     | This table keeps track of all the migrations that have already run for
     | your application. Using this information, we can determine which of
@@ -329,9 +328,9 @@ return [
     'migrations' => 'migrations',
 
     /*
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     | Redis Databases
-    |--------------------------------------------------------------------------
+    |========================================================-------------
     |
     | Redis is an open source, fast, and advanced key-value store that also
     | provides a richer set of commands than a typical key-value systems
