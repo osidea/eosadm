@@ -26,7 +26,7 @@ class UCenter
         $db = D('ucenter_member')::orWhere($where) -> where(['password' => password_encode(@$logininfo['username'], @$logininfo['password'])]) -> first();
         if($db){
             if($mode=='admin'){
-                if(@$db -> status == 99){
+                if(str_split($db -> auth)[0] == 'y'){
                     $token = sha1(base64_encode($db->id). time());
                     self::setlogin($token, $mode);
                     S('token_'. $token, $db->id);

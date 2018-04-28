@@ -35,7 +35,7 @@ class Common extends Controller
                 $this->apiReturn(1, '密码不能为空');
             }
 
-            return UCenter::check([
+            return D('ucenter_member') -> check([
                 'username' => $this->input['Ex_un32'],
                 'password' => $this->input['Ep_pw33'],
             ], 'admin');

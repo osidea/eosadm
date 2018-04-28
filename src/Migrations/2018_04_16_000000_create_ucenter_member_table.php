@@ -24,6 +24,12 @@ class CreateUcenterMemberTable extends Migration
             $table->softDeletes();
             $table->rememberToken()->nullable();
             $table->string('status', 10);
+            $table->string('auth')->default('--');
+            /**
+             * auth:
+             * @admin
+             * @develop
+             */
         });
     }
 

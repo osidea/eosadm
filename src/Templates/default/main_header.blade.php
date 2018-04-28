@@ -209,9 +209,12 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
                             <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
-                            <li><a href="#"><span class="badge bg-blue pull-right">26</span> <i
-                                            class="icon-comment-discussion"></i> Messages</a></li>
+                            <li><a href="#"><span class="badge bg-blue pull-right">26</span> <i class="icon-comment-discussion"></i> Messages</a></li>
                             <li class="divider"></li>
+                            @if(session('admin.auth')[1] == 'y')
+                                {{--<li><a href="#"><i class="icon-coins"></i> </a></li>--}}
+                                {{--<li class="divider"></li>--}}
+                            @endif
                             <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
                             <li><a href="javascript:;" class="logout"><i class="icon-switch2"></i> 退出控制台</a></li>
                         </ul>

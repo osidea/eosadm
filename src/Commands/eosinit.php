@@ -76,16 +76,17 @@ class eosinit extends Command
                         'password' => $this -> password,
                         'phone' => $phone,
                         'email' => $email,
-                        'status' => 99 //总管理员
+                        'status' => 1,
+                        'auth' => 'yy' //总管理员 + 开发模式
                     ]
                 );
 
                 $config = [
-                    ['name' => 'site_name', 'type' => 1, 'title' => '站点名称', 'value' => env('APP_NAME'), 'group' => 'site', 'remark' => '站点主标题', 'lock' => 1],
-                    ['name' => 'site_keyword', 'type' => 2, 'title' => '站点关键字', 'value' => env('APP_NAME'), 'group' => 'site', 'remark' => '用于SEO优化', 'lock' => 1],
-                    ['name' => 'site_description', 'type' => 2, 'title' => '站点描述', 'value' => env('APP_NAME'), 'group' => 'site', 'remark' => '用于SEO优化', 'lock' => 1],
-                    ['name' => 'site_status', 'type' => 8, 'title' => '站点状态', 'value' => 0, 'extra' => '0:关闭,1:开启', 'group' => 'site', 'remark' => '关闭站点后仅可访问控制台', 'lock' => 1],
-                    ['name' => 'site_close_text', 'type' => 1, 'title' => '关闭站点提示语', 'value' => '站点维护中,马上回来！', 'group' => 'site', 'remark' => '关闭站点后的提示语', 'lock' => 1],
+                    ['name' => 'site_name', 'type' => 1, 'title' => '站点名称', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '站点主标题', 'lock' => 1],
+                    ['name' => 'site_keyword', 'type' => 2, 'title' => '站点关键字', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '用于SEO优化', 'lock' => 1],
+                    ['name' => 'site_description', 'type' => 2, 'title' => '站点描述', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '用于SEO优化', 'lock' => 1],
+                    ['name' => 'site_status', 'type' => 8, 'title' => '站点状态', 'value' => 0, 'extra' => '0:关闭,1:开启', 'group' => '基础配置', 'remark' => '关闭站点后仅可访问控制台', 'lock' => 1],
+                    ['name' => 'site_close_text', 'type' => 1, 'title' => '关闭站点提示语', 'value' => '站点维护中,马上回来！', 'group' => '基础配置', 'remark' => '关闭站点后的提示语', 'lock' => 1],
                 ];
                 foreach($config as $value){
                     DS('system_config', $value);
