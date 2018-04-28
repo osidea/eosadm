@@ -121,7 +121,7 @@ class eosinit extends Command
                     ['name' => '字段名称', 'model_name' => 'system_model_field', 'field' => 'field'],
                     ['name' => '占位符', 'model_name' => 'system_model_field', 'field' => 'placeholder'],
                     ['name' => '默认值', 'model_name' => 'system_model_field', 'field' => 'default_value'],
-                    ['name' => '扩展值', 'model_name' => 'system_model_field', 'field' => 'extra_custom'],
+                    ['name' => '扩展值', 'model_name' => 'system_model_field', 'field' => 'extra_custom', 'type' => 'text'],
                     ['name' => '扩展模型', 'model_name' => 'system_model_field', 'field' => 'extra_model'],
                     ['name' => '模型条件', 'model_name' => 'system_model_field', 'field' => 'extra_where'],
                     ['name' => '标签名', 'model_name' => 'system_model_field', 'field' => 'extra_name'],

@@ -31,7 +31,7 @@ if(!function_exists('apiReturn')){
 }
 
 if(!function_exists('base_form')){
-    function base_form($form_name){
+    function base_form($form_name, $info=null){
         $domHtml = '';
         $model = D('system_model') -> where(['model_name' => $form_name]) -> first();
         if($model){
@@ -42,7 +42,7 @@ if(!function_exists('base_form')){
                 $name = $value['name'];
                 $field = $value['field'];
                 $placeholder = @$value['placeholder'];
-                $values = @$value['default_value'];
+                $values = @$info[$value['field']]?$info[$value['field']]:@$value['default_value'];
                 $remark = @$value['remark'];
                 switch(@$value['type']){
                     case 'text':

@@ -40,6 +40,62 @@ class System extends Common
         }
     }
 
+    public function model()
+    {
+        switch(I('get.o')){
+            case 'save':
+                if(IS_POST){
+                    unset($this->input['id']);
+                    unset($this->input['o']);
+                    if(DS('system_model', $this->input, I('get.id'))){
+                        return $this->apiReturn(0, '操作成功');
+                    } else {
+                        return $this->apiReturn(-2, '操作失败');
+                    }
+                } else {
+                    $info = D('system_model') -> where(['id' => I('id')]) -> first();
+                    $page_title = $info?'编辑':'新增';
+                    return V('system.model.save', $page_title.'模型', compact('info'));
+                }
+                break;
+            default:
+                if(IS_POST){
+
+                } else {
+                    return V('system.model.index', '模型管理');
+                }
+                break;
+        }
+    }
+
+    public function field()
+    {
+        switch(I('get.o')){
+            case 'save':
+                if(IS_POST){
+                    unset($this->input['id']);
+                    unset($this->input['o']);
+                    if(DS('system_model_field', $this->input, I('get.id'))){
+                        return $this->apiReturn(0, '操作成功');
+                    } else {
+                        return $this->apiReturn(-2, '操作失败');
+                    }
+                } else {
+                    $info = D('system_model_field') -> where(['id' => I('id')]) -> first();
+                    $page_title = $info?'编辑':'新增';
+                    return V('system.field.save', $page_title.'字段', compact('info'));
+                }
+                break;
+            default:
+                if(IS_POST){
+
+                } else {
+                    return V('system.field.index', '模型管理');
+                }
+                break;
+        }
+    }
+
     public function run($action='')
     {
         switch($action){

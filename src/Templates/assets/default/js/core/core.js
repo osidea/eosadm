@@ -128,7 +128,7 @@ $("#reload").on('click', function(){
     location.reload();
 })
 
-$(".inputhelp").hide();
+// $(".inputhelp").hide();
 
 $(".inputShowhelp").on('focus', function(){
     var id = $(this).data('id');
