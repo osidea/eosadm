@@ -68,7 +68,6 @@ class ucenter_member extends Model
             'username' => @$logininfo['username'],
             'phone' => @$logininfo['username'],
         ];
-
         $db = D('ucenter_member')::orWhere($where) -> where(['password' => $this->password_encode(@$logininfo['username'], @$logininfo['password'])]) -> first();
         if($db){
             if($mode=='admin'){

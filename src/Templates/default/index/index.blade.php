@@ -15,7 +15,18 @@
 
             <!-- Main content -->
             <div class="content-wrapper">
-
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">{{ $page_title }}</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload" id="reload"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {{--{!! base_form('system_model_field') !!}--}}
+                </div>
             </div>
             <!-- /main content -->
 

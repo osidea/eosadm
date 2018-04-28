@@ -30,6 +30,108 @@ if(!function_exists('apiReturn')){
     }
 }
 
+if(!function_exists('base_form')){
+    function base_form($form_name){
+        $domHtml = '';
+        $model = D('system_model') -> where(['model_name' => $form_name]) -> first();
+        if($model){
+            $action = $model -> action;
+            $done = $model -> done;
+            $dom = D('system_model_field') -> where(['model_name' => $form_name]) -> get();
+            foreach($dom as $key => $value){
+                $name = $value['name'];
+                $field = $value['field'];
+                $placeholder = @$value['placeholder'];
+                $values = @$value['default_value'];
+                $remark = @$value['remark'];
+                switch(@$value['type']){
+                    case 'text':
+                        $tmpDom = <<<html
+<textarea class="form-control inputShowhelp" data-id="$key" name="$name" rows="5" cols="5">$values</textarea>
+html;
+                        break;
+                    case 'select':
+                        $option = '';
+
+                        $tmp = explode(',', $value -> extra_custom);
+                        foreach($tmp as $_value){
+                            $option_tmp = explode(':', $_value);
+                            if(@$option_tmp[0] == $values){
+                                $selected = 'selected="selected"';
+                            } else {
+                                $selected = '';
+                            }
+                            $option .= '<option value="'.@$option_tmp[0].'" '.$selected.'>'.@$option_tmp[1].'</option>';
+                        }
+
+                        if($value -> extra_model){
+                            $where = json_decode($value -> extra_where);
+                            if(!$where) $where = [];
+                            $list = D($value -> extra_model) -> where($where) -> get();
+                            foreach($list as $_key => $_value){
+                                $extra_value = $value['extra_value'];
+                                $extra_name = $value['extra_name'];
+                                if(@$_value -> $extra_value == $values){
+                                    $selected = 'selected="selected"';
+                                } else {
+                                    $selected = '';
+                                }
+                                $option .= '<option value="'.@$_value -> $extra_value.'" '.@$selected.'>'.@$_value -> $extra_name.'</option>';
+                            }
+
+                        }
+
+                        $tmpDom = <<<html
+<select class="form-control inputShowhelp" name="$name" data-id="$key">
+$option
+</select>
+html;
+                        break;
+                    default:
+                        $tmpDom = <<<html
+<input type="text" class="form-control inputShowhelp" data-id="$key" name="$field" placeholder="$placeholder" value="$values">
+html;
+                        break;
+                }
+
+
+                $domHtml .= <<<html
+<tr>
+    <td>$name</td>
+    <td>
+        $tmpDom
+    </td>
+    <td><span id="help_$key" class="help-inline inputhelp" hidden>$remark</span></td>
+</tr>
+html;
+
+            }
+
+            $html = <<<html
+ <form id="$form_name" action="$action" done="$done">
+    <table class="table table-striped">
+        <tbody>
+        $domHtml
+        <tr>
+            <td><i class="text-danger">*</i> 为必填</td>
+            <td>
+                <button type="button" class="btn btn-info submit-form" data-loading-text="<i class='icon-spinner10 spinner position-left'></i> 提交中..." data-form="$form_name">提交</button>
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+html;
+        } else {
+            $html = '没有找到['.$form_name.']模型';
+        }
+
+
+        return $html;
+    }
+}
+
 if(!function_exists('loadconfig')){
     /**
      * 读取系统配置

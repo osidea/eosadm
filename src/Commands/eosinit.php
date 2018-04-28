@@ -81,6 +81,7 @@ class eosinit extends Command
                     ]
                 );
 
+                //----------------------------------------------------------------------------------------------------------------------------------------------------------------
                 $config = [
                     ['name' => 'site_name', 'type' => 1, 'title' => '站点名称', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '站点主标题', 'lock' => 1],
                     ['name' => 'site_keyword', 'type' => 2, 'title' => '站点关键字', 'value' => env('APP_NAME'), 'group' => '基础配置', 'remark' => '用于SEO优化', 'lock' => 1],
@@ -103,6 +104,36 @@ class eosinit extends Command
                 foreach($auth as $value){
                     DS('auth_rule', $value);
                 }
+                $model = [
+                    ['name' => '模型管理', 'model_name' => 'system_model', 'status' => 1],
+                    ['name' => '表单管理', 'model_name' => 'system_model_field', 'status' => 1],
+                ];
+                foreach($model as $value){
+                    DS('system_model', $value);
+                }
+                $model_field = [
+                    ['name' => '名称', 'model_name' => 'system_model', 'field' => 'name'],
+                    ['name' => '模型名称', 'model_name' => 'system_model', 'field' => 'model_name'],
+                    ['name' => '请求地址', 'model_name' => 'system_model', 'field' => 'action'],
+                    ['name' => '完成跳转', 'model_name' => 'system_model', 'field' => 'done'],
+
+                    ['name' => '字段标题', 'model_name' => 'system_model_field', 'field' => 'name'],
+                    ['name' => '字段名称', 'model_name' => 'system_model_field', 'field' => 'field'],
+                    ['name' => '占位符', 'model_name' => 'system_model_field', 'field' => 'placeholder'],
+                    ['name' => '默认值', 'model_name' => 'system_model_field', 'field' => 'default_value'],
+                    ['name' => '扩展值', 'model_name' => 'system_model_field', 'field' => 'extra_custom'],
+                    ['name' => '扩展模型', 'model_name' => 'system_model_field', 'field' => 'extra_model'],
+                    ['name' => '模型条件', 'model_name' => 'system_model_field', 'field' => 'extra_where'],
+                    ['name' => '标签名', 'model_name' => 'system_model_field', 'field' => 'extra_name'],
+                    ['name' => '标签值', 'model_name' => 'system_model_field', 'field' => 'extra_value'],
+                    ['name' => '字段说明', 'model_name' => 'system_model_field', 'field' => 'remark'],
+                    ['name' => '字段类型', 'model_name' => 'system_model_field', 'field' => 'type', 'extra_custom' => 'input:输入框,text:文本,select:下拉选项', 'type' => 'select'],
+                ];
+                foreach($model_field as $value){
+                    DS('system_model_field', $value);
+                }
+
+                //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                 if($create_user['errcode'] == 0){
                     file_put_contents(base_path('eosadm.lock'), time());
