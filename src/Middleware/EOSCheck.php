@@ -25,9 +25,12 @@ class EOSCheck
     public function handle($request, Closure $next)
     {
         loadconfig();
+		
+		$nowurl = (str_replace('/' . config('admin.perfix'), '', @$_SERVER['REDIRECT_URL']?$_SERVER['REDIRECT_URL']:$_SERVER['REQUEST_URI']));
+		$nowurl = explode('?', $nowurl)[0];
 
         if (!session('admin.token') || session('admin.is_adm') != 1) {
-            if (!in_array(str_replace('/' . config('admin.perfix'), '', $_SERVER['REDIRECT_URL']), $this->except)) {
+            if (!in_array(str_replace('/' . config('admin.perfix'), '', $nowurl), $this->except)) {
                 return R('login', ['backurl' => $_SERVER['REQUEST_URI']]);
             }
         }

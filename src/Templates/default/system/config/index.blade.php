@@ -39,8 +39,8 @@
                             <li class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus2"></i> <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="javascript:;">新增分组</a></li>
-                                    <li><a href="javascript:;">新增配置</a></li>
+                                    <li><a href="{{admurl('system/config?o=group')}}">新增分组</a></li>
+                                    <li><a href="{{admurl('system/config?o=config')}}">新增配置</a></li>
                                 </ul>
                             </li>
                             <li><a href="javascript:;" id="config_add"></a></li>
@@ -69,6 +69,12 @@
                                                         @if($value['type'] == 1)
                                                             <input type="text" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
                                                         @endif
+                                                        @if($value['type'] == 3)
+                                                            <input type="number" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
+                                                        @endif
+                                                            @if($value['type'] == 4)
+                                                                <input type="password" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
+                                                            @endif
                                                         @if($value['type'] == 2)
                                                             <textarea class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" rows="5" cols="5">{{$value['value']}}</textarea>
                                                         @endif
@@ -79,6 +85,13 @@
                                                                 @endforeach
                                                             </select>
                                                         @endif
+                                                            @if($value['type'] == 9)
+                                                                @foreach($value['extra'] as $_value)
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" class="styled" data-id="{{$key}}" name="{{$value['name']}}" value="{{$_value['value']}}" @if($_value['value'] == $value['value']) checked="checked" @endif> {{$_value['name']}}
+                                                                    </label>
+                                                                @endforeach
+                                                            @endif
                                                     </td>
                                                     <td><span id="help_{{$key}}" class="help-inline inputhelp" hidden>{{$value['remark']}}</span></td>
                                                     <td>C('{{$value['name']}}')</td>

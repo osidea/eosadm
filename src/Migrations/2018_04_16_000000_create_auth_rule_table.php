@@ -26,6 +26,7 @@ class CreateAuthRuleTable extends Migration
             $table->string('created_at', 100)->nullable();
             $table->string('updated_at', 100)->nullable();
             $table->integer('auth')->default(0);
+            $table->string('show', 10)->default(1);
             $table->string('status', 10)->default(1);
         });
     }

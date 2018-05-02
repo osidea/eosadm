@@ -15,6 +15,8 @@ class Common extends Controller
     public function __construct()
     {
         $this->input = Input::all();
+        unset($this->input['id']);
+        unset($this->input['o']);
     }
 
     public function apiReturn($errcode=-1, $message='', $data=[])

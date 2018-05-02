@@ -30,42 +30,121 @@ if(!function_exists('apiReturn')){
     }
 }
 
+if(!function_exists('aliyun_sendsms')){
+    function aliyun_sendsms($phone, $uid=0){
+
+        $accessKeyId = C('aliyun_appid');
+        $accessKeySecret = C('aliyun_appkey');
+
+        vendor('aliyun_sms/vendor/autoload.php');
+        \Aliyun\Core\Config::load();
+        $product = "Dysmsapi";
+        $domain = "dysmsapi.aliyuncs.com";
+        $region = "cn-hangzhou";
+        $endPointName = "cn-hangzhou";
+        $code = rand(100000, 999999);
+
+        $check = D(C('aliyun_sms_model')) -> where(['phone' => $phone]) -> first();
+        if($check){
+            if(strtotime($check['updated_at']) > time() + C('aliyun_sms_timer') && $check['status'] == 0){
+                return false;
+            } else {
+                if($check['day'] == date('Ymd')){
+                    //如果是当天的 看看超过2次了不
+                    if($check['num'] > 2){
+                        return false;
+                    } else {
+                        DS(C('aliyun_sms_model'), ['uid' => $uid, 'code' => $code, 'num' => $check['num'] + 1, 'status' => 0], $check['id']);
+                    }
+                } else {
+                    //不是当天的直接发送
+                    DS(C('aliyun_sms_model'), ['uid' => $uid, 'code' => $code, 'num' => 1, 'status' => 0, 'day' => date("Ymd")], $check['id']);
+                }
+            }
+        } else {
+            DS(C('aliyun_sms_model'), ['uid' => $uid, 'phone' => $phone, 'code' => $code, 'num' => 1, 'status' => 0, 'day' => date("Ymd")]);
+        }
+
+        try{
+            $profile = \Aliyun\Core\Profile\DefaultProfile::getProfile($region, $accessKeyId, $accessKeySecret);
+            \Aliyun\Core\Profile\DefaultProfile::addEndpoint($endPointName, $region, $product, $domain);
+            $api = new \Aliyun\Core\DefaultAcsClient($profile);
+
+            $request = new \Aliyun\Api\Sms\Request\V20170525\SendSmsRequest();
+
+            $request->setPhoneNumbers((string)$phone);
+            $request->setSignName(C('aliyun_sms_sign'));
+            $request->setTemplateCode(C('aliyun_sms_template'));
+            $request->setTemplateParam(json_encode(["code" => (string)$code], JSON_UNESCAPED_UNICODE));
+
+            // 发起访问请求
+            $acsResponse = $api->getAcsResponse($request);
+            return $acsResponse;
+        } catch (\Exception $e){
+            return $e->getMessage();
+        }
+
+    }
+}
+
 if(!function_exists('base_form')){
     function base_form($form_name, $info=null){
         $domHtml = '';
         $model = D('system_model') -> where(['model_name' => $form_name]) -> first();
+
         if($model){
             $action = $model -> action;
             $done = $model -> done;
             $dom = D('system_model_field') -> where(['model_name' => $form_name]) -> get();
+
             foreach($dom as $key => $value){
                 $name = $value['name'];
                 $field = $value['field'];
                 $placeholder = @$value['placeholder'];
-                $values = @$info[$value['field']]?$info[$value['field']]:@$value['default_value'];
+                switch($value['default_value']){
+                    case '#I#':
+                        $value['default_value'] = I($value['field']);
+                        break;
+                }
+                $values = $info?$info[$value['field']]:@$value['default_value'];
                 $remark = @$value['remark'];
+                $show = $value['show']?'':'hidden';
+
                 switch(@$value['type']){
                     case 'text':
                         $tmpDom = <<<html
-<textarea class="form-control inputShowhelp" data-id="$key" name="$name" rows="5" cols="5">$values</textarea>
+<textarea class="form-control inputShowhelp" data-id="$key" name="$field" rows="5" cols="5">$values</textarea>
+html;
+                        break;
+                    case 'number':
+                        $tmpDom = <<<html
+<input type="number" class="form-control inputShowhelp" data-id="$key" name="$field" placeholder="$placeholder" value="$values">
+html;
+                        break;
+                    case 'password':
+                        $tmpDom = <<<html
+<input type="password" class="form-control inputShowhelp" data-id="$key" name="$field" placeholder="$placeholder" value="$values">
 html;
                         break;
                     case 'select':
                         $option = '';
 
-                        $tmp = explode(',', $value -> extra_custom);
-                        foreach($tmp as $_value){
-                            $option_tmp = explode(':', $_value);
-                            if(@$option_tmp[0] == $values){
-                                $selected = 'selected="selected"';
-                            } else {
-                                $selected = '';
+                        if($value -> extra_custom){
+                            $tmp = explode(',', $value -> extra_custom);
+                            foreach($tmp as $_value){
+                                $option_tmp = explode(':', $_value);
+                                if(@$option_tmp[0] == $values){
+                                    $selected = 'selected="selected"';
+                                } else {
+                                    $selected = '';
+                                }
+                                $option .= '<option value="'.@$option_tmp[0].'" '.$selected.'>'.@$option_tmp[1].'</option>';
                             }
-                            $option .= '<option value="'.@$option_tmp[0].'" '.$selected.'>'.@$option_tmp[1].'</option>';
                         }
 
                         if($value -> extra_model){
-                            $where = json_decode($value -> extra_where);
+                            $where = json_decode($value -> extra_where, true);
+
                             if(!$where) $where = [];
                             $list = D($value -> extra_model) -> where($where) -> get();
                             foreach($list as $_key => $_value){
@@ -81,11 +160,30 @@ html;
 
                         }
 
+
                         $tmpDom = <<<html
-<select class="form-control inputShowhelp" name="$name" data-id="$key">
+<select class="form-control inputShowhelp" name="$field" data-id="$key">
 $option
 </select>
 html;
+                        break;
+                    case 'radio':
+                        $option = '';
+                        if($value -> extra_custom){
+                            $tmp = explode(',', $value -> extra_custom);
+                            foreach($tmp as $_value){
+                                $option_tmp = explode(':', $_value);
+                                if(@$option_tmp[0] == $values){
+                                    $checked = 'checked="checked"';
+                                } else {
+                                    $checked = '';
+                                }
+
+
+                                $option .= '<label class="radio-inline"><input type="radio" class="styled" data-id="'.$key.'" name="'.$field.'" '.$checked.' value="'.$option_tmp[0].'"> '.@$option_tmp[1].'</label>';
+                            }
+                        }
+                        $tmpDom = $option;
                         break;
                     default:
                         $tmpDom = <<<html
@@ -96,7 +194,7 @@ html;
 
 
                 $domHtml .= <<<html
-<tr>
+<tr class="$show">
     <td>$name</td>
     <td>
         $tmpDom
@@ -105,6 +203,12 @@ html;
 </tr>
 html;
 
+            }
+
+            if($done == 'back'){
+                $done = $_SERVER['HTTP_REFERER'];
+            } elseif($done) {
+                $done = admurl($done);
             }
 
             $html = <<<html

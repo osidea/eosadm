@@ -201,13 +201,42 @@ $('ajax').on('click', function(e){
     var type = $(this).attr('type');
     var done = $(this).attr('done');
 
+    var prompt = $(this).attr('prompt');
+    var prompt_title = $(this).attr('prompt_title');
+    var prompt_text = $(this).attr('prompt_text');
+    var prompt_color = $(this).attr('prompt_color');
+    var prompt_confirm_btn_text = $(this).attr('prompt_btn_text');
+
     if(!href)href = ''
     if(!type)type = 'get'
-    if(!notice)notice = true
 
+
+    if(prompt){
+        swal({
+            title: prompt_title,
+            text: prompt_text,
+            type: prompt,
+            showCancelButton: true,
+            confirmButtonColor: prompt_color,
+            confirmButtonText: prompt_confirm_btn_text,
+            cancelButtonText: "取消",
+        },
+            function(){
+                ajax_fun(href, type, done)
+            });
+    } else {
+        ajax_fun(href, type, done)
+    }
+
+
+
+
+})
+
+var ajax_fun = function(href, type, done){
     var options = {
         text: "请稍后...",
-        addclass: 'bg-primary',
+        addclass: 'bg-primary-300',
         type: 'info',
         icon: 'icon-spinner4 spinner',
         hide: false,
@@ -280,4 +309,13 @@ $('ajax').on('click', function(e){
             }
         }
     });
-})
+}
+
+
+// Checkboxes, radios
+$(".styled").uniform({ radioClass: 'choice' });
+
+// File input
+$(".file-styled").uniform({
+    fileButtonClass: 'action btn bg-pink-400'
+});

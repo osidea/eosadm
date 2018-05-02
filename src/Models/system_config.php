@@ -33,6 +33,20 @@ class system_config extends Model
                     }
                     $list[$key] -> extra = $arr;
                     break;
+                case 9:
+                    $arr = [];
+                    $tmp = explode(',', $value -> extra);
+                    $list[$key] -> extra = [];
+                    foreach($tmp as $_value){
+                        $option_tmp = explode(':', $_value);
+                        $explode_tmp = [
+                            'name' => $option_tmp[1],
+                            'value' => $option_tmp[0],
+                        ];
+                        $arr[] = $explode_tmp;
+                    }
+                    $list[$key] -> extra = $arr;
+                    break;
             }
         }
         return $list;

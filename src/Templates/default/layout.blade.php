@@ -27,6 +27,9 @@
     <script type="text/javascript" src="/resources/default/js/plugins/ui/fab.min.js"></script>
     <script type="text/javascript" src="/resources/default/js/plugins/notifications/pnotify.min.js"></script>
     <script type="text/javascript" src="/resources/default/js/plugins/fakeLoader/fakeLoader.min.js"></script>
+    <script type="text/javascript" src="/resources/default/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="/resources/default/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="/resources/default/js/plugins/forms/selects/select2.min.js"></script>
 
     <!-- /core JS files -->
 

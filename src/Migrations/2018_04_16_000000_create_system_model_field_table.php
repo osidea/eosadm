@@ -29,6 +29,7 @@ class CreateSystemModelFieldTable extends Migration
             $table->string('type')->nullable();
             $table->string('created_at', 100)->nullable();
             $table->string('updated_at', 100)->nullable();
+            $table->integer('show')->default(1);
         });
     }
 
