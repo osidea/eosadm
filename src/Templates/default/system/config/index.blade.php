@@ -64,7 +64,7 @@
                                             <tbody>
                                             @foreach($list as $key => $value)
                                                 <tr>
-                                                    <td class="showedit" data-show="showedit_{{$key}}">{{$value['title']}} @if($value['lock'] == 0) <a class="editlabel" id="showedit_{{$key}}" href="">编辑</a> @endif</td>
+                                                    <td class="showedit" data-show="showedit_{{$key}}">{{$value['title']}} @if($value['lock'] == 0) <a class="editlabel" id="showedit_{{$key}}" href="{{admurl('system/config', ['o' => 'config', 'id' => $value['id']])}}">编辑</a> @endif</td>
                                                     <td>
                                                         @if($value['type'] == 1)
                                                             <input type="text" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">

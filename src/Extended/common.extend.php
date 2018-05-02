@@ -32,7 +32,6 @@ if(!function_exists('apiReturn')){
 
 if(!function_exists('aliyun_sendsms')){
     function aliyun_sendsms($phone, $uid=0){
-
         $accessKeyId = C('aliyun_appid');
         $accessKeySecret = C('aliyun_appkey');
 
@@ -43,8 +42,8 @@ if(!function_exists('aliyun_sendsms')){
         $region = "cn-hangzhou";
         $endPointName = "cn-hangzhou";
         $code = rand(100000, 999999);
-
-        $check = D(C('aliyun_sms_model')) -> where(['phone' => $phone]) -> first();
+        
+        $check = D(C('aliyun_sms_model'), true) -> where(['phone' => $phone]) -> first();
         if($check){
             if(strtotime($check['updated_at']) > time() + C('aliyun_sms_timer') && $check['status'] == 0){
                 return false;
@@ -54,15 +53,15 @@ if(!function_exists('aliyun_sendsms')){
                     if($check['num'] > 2){
                         return false;
                     } else {
-                        DS(C('aliyun_sms_model'), ['uid' => $uid, 'code' => $code, 'num' => $check['num'] + 1, 'status' => 0], $check['id']);
+                        DS(C('aliyun_sms_model'), ['uid' => $uid, 'code' => $code, 'num' => $check['num'] + 1, 'status' => 0], $check['id'], true);
                     }
                 } else {
                     //不是当天的直接发送
-                    DS(C('aliyun_sms_model'), ['uid' => $uid, 'code' => $code, 'num' => 1, 'status' => 0, 'day' => date("Ymd")], $check['id']);
+                    DS(C('aliyun_sms_model'), ['uid' => $uid, 'code' => $code, 'num' => 1, 'status' => 0, 'day' => date("Ymd")], $check['id'], true);
                 }
             }
         } else {
-            DS(C('aliyun_sms_model'), ['uid' => $uid, 'phone' => $phone, 'code' => $code, 'num' => 1, 'status' => 0, 'day' => date("Ymd")]);
+            DS(C('aliyun_sms_model'), ['uid' => $uid, 'phone' => $phone, 'code' => $code, 'num' => 1, 'status' => 0, 'day' => date("Ymd")], null, true);
         }
 
         try{
@@ -418,8 +417,12 @@ if(!function_exists('CU')){
 }
 
 if(!function_exists('D')){
-    function D($model_name){
-        $model = '\\EOSFM\Framework\Models\\'.$model_name;
+    function D($model_name, $base=null){
+        if($base){
+            $model = '\\App\Models\\'.$model_name;
+        } else {
+            $model = '\\EOSFM\Framework\Models\\'.$model_name;
+        }
         if(class_exists($model)){
             return new $model;
         } else {
@@ -430,20 +433,20 @@ if(!function_exists('D')){
 
 
 if(!function_exists('DS')){
-    function DS($model_name, $data, $id=null){
+    function DS($model_name, $data, $id=null, $base=null){
         if($id){
             if(is_array($id)){
-                $db = D($model_name)::where($id);
+                $db = D($model_name, $base)::where($id);
                 if($db -> update($data)){
                     return true;
                 } else {
                     return false;
                 }
             } else if(is_numeric($id)) {
-                $db = D($model_name)::find($id);
+                $db = D($model_name, $base)::find($id);
             }
         } else {
-            $db = D($model_name);
+            $db = D($model_name, $base);
         }
 
         foreach($data as $key => $value){
