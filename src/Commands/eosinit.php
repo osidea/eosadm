@@ -190,7 +190,7 @@ class eosinit extends Command
                     ['name' => '配置项', 'model_name' => 'system_config', 'field' => 'extra', 'remark' => '如果是枚举型 需要配置该项'],
                     ['name' => '变量值', 'model_name' => 'system_config', 'field' => 'value'],
                     ['name' => '状态', 'model_name' => 'system_config', 'field' => 'status', 'default_value' => 1, 'extra_custom' => '0:停用,1:启用', 'type' => 'radio'],
-                    ['name' => '锁定', 'model_name' => 'system_config', 'field' => 'lock', 'default_value' => 0, 'show' => 0,'extra_custom' => '0:不锁定,1:锁定', 'type' => 'radio'],
+                    ['name' => '锁定', 'model_name' => 'system_config', 'field' => 'lock', 'default_value' => 0, 'show' => 1,'extra_custom' => '0:不锁定,1:锁定', 'type' => 'radio', 'remark' => '锁定后将无法修改'],
                 ];
                 $this->info('');
                 $bar = $this->output->createProgressBar(count($model_field)+1);

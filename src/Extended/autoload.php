@@ -7,8 +7,6 @@ define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
 define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
 define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
 
-require __DIR__.'/sdk/autoload.php';
-
 $dir = opendir(__DIR__);
 while($row = readdir($dir))
 {

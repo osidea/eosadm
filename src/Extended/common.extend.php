@@ -206,7 +206,7 @@ html;
             }
 
             if($done == 'back'){
-                $done = $_SERVER['HTTP_REFERER'];
+                $done = @$_SERVER['HTTP_REFERER'];
             } elseif($done) {
                 $done = admurl($done);
             }

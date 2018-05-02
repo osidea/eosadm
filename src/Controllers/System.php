@@ -68,7 +68,9 @@ class System extends Common
                         return $this->apiReturn(-2, '操作失败');
                     }
                 } else {
-                    return V('system.config.config', '配置');
+                    $info = D('system_config') -> where(['id' => I('id')]) -> first();
+                    $page_title = $info?'编辑':'新增';
+                    return V('system.config.config', $page_title. '配置', compact('info'));
                 }
                 break;
             case 'save':
