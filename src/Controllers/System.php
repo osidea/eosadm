@@ -143,37 +143,40 @@ model;
                 $fields = D('system_model_field') -> where(['model_name' => I('model_name')]) -> get();
                 if(count($fields)){
                     if (Schema::hasTable(I('model_name'))) {
-                        return $this->apiReturn(-2, '模型已生成,如需要更新或重新生成,请先删除此表');
-                    } else {
-                        try{
-                            Schema::create(I('model_name'), function (Blueprint $table) use($fields) {
-                                $table->increments('id');
-                                foreach($fields as $value){
-                                    $name = $value->field;
-                                    switch($value->type){
-                                        case 'text':
-                                            $table->text($name)->nullable();
-                                            break;
-                                        case 'number':
-                                            $table->integer($name)->default(0);
-                                            break;
-                                        default:
-                                            $table->string($name)->nullable();
-                                            break;
-                                    }
-                                }
-
-                                $table->string('created_at', 100)->nullable();
-                                $table->string('updated_at', 100)->nullable();
-                            });
-                            DS('system_model', ['status' => 1], ['model_name' => I('model_name')]);
-                            return $this->apiReturn(0, '模型已生成');
-                        } catch (\Exception $e) {
-
+                        if(I('re') == 1){
                             Schema::drop(I('model_name'));
-                            return $this->apiReturn(-2, $e->getMessage());
+                        } else {
+                            return $this->apiReturn(-2, '模型已生成,如需要更新或重新生成,请先删除此表');
                         }
+                        
+                    }
 
+                    try{
+                        Schema::create(I('model_name'), function (Blueprint $table) use($fields) {
+                            $table->increments('id');
+                            foreach($fields as $value){
+                                $name = $value->field;
+                                switch($value->type){
+                                    case 'text':
+                                        $table->text($name)->nullable();
+                                        break;
+                                    case 'number':
+                                        $table->integer($name)->default(0);
+                                        break;
+                                    default:
+                                        $table->string($name)->nullable();
+                                        break;
+                                }
+                            }
+
+                            $table->string('created_at', 100)->nullable();
+                            $table->string('updated_at', 100)->nullable();
+                        });
+                        DS('system_model', ['status' => 1], ['model_name' => I('model_name')]);
+                        return $this->apiReturn(0, '模型已生成');
+                    } catch (\Exception $e) {
+                        Schema::drop(I('model_name'));
+                        return $this->apiReturn(-2, $e->getMessage());
                     }
                 } else {
                     return $this->apiReturn(-2, '没有可生成的字段');

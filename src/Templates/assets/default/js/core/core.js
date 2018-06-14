@@ -130,15 +130,15 @@ $("#reload").on('click', function(){
 
 // $(".inputhelp").hide();
 
-$(".inputShowhelp").on('focus', function(){
-    var id = $(this).data('id');
-    $("#help_" + id).show();
-})
+// $(".inputShowhelp").on('focus', function(){
+//     var id = $(this).data('id');
+//     $("#help_" + id).show();
+// })
 
-$(".inputShowhelp").on('blur', function(){
-    var id = $(this).data('id');
-    $("#help_" + id).hide();
-})
+// $(".inputShowhelp").on('blur', function(){
+//     var id = $(this).data('id');
+//     $("#help_" + id).hide();
+// })
 
 $(".submit-form").on('click', function(){
     var btn = $(this);
@@ -206,7 +206,14 @@ $('ajax').on('click', function(e){
     var prompt_text = $(this).attr('prompt_text');
     var prompt_color = $(this).attr('prompt_color');
     var prompt_confirm_btn_text = $(this).attr('prompt_btn_text');
-
+    // console.log(prompt);
+    // console.log(prompt_title);
+    // console.log(prompt_text);
+    // console.log(prompt_color);
+    // console.log(prompt_confirm_btn_text);
+    // console.log(href);
+    // console.log(type);
+    // console.log(done);
     if(!href)href = ''
     if(!type)type = 'get'
 

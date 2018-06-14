@@ -100,7 +100,12 @@
                                 <td>
                                     <a class="label bg-info-300" href="{{admurl('system/model', ['o' => 'save', 'id' => $value->id])}}"><i class="icon-compose"></i> 编辑</a>
                                     <a class="label bg-primary" href="{{admurl('system/field', ['model_name' => $value->model_name])}}"><i class="icon-grid-alt"></i> 字段</a>
-                                    <ajax class="label bg-primary-300" href="{{admurl('system/model', ['o' => 'generate', 'model_name' => $value->model_name])}}" done="{{admurl('system/model')}}" prompt="info" prompt_title="操作确认" prompt_text="生成模型会新建相对应的数据表和模型文件,是否生成?" prompt_btn_text="生成"><i class="icon-git-compare"></i> 生成</ajax>
+                                    @if($value->status == 0)
+                                        <ajax class="label bg-primary-300" href="{{admurl('system/model', ['o' => 'generate', 'model_name' => $value->model_name])}}" done="{{admurl('system/model')}}" prompt="info" prompt_title="操作确认" prompt_text="生成模型会新建相对应的数据表和模型文件,是否生成?" prompt_btn_text="生成"><i class="icon-git-compare"></i> 生成</ajax>
+                                    @endif
+                                    @if($value->status == 1)
+                                        <ajax class="label bg-danger-300" href="{{admurl('system/model', ['o' => 'generate', 'model_name' => $value->model_name, 're' => 1])}}" done="{{admurl('system/model')}}" prompt="warning" prompt_title="操作确认" prompt_text="当前操作会导致原模型中的数据丢失,是否生成?" prompt_color="#FF7043" prompt_btn_text="生成"><i class="icon-git-compare"></i> 重新生成</ajax>
+                                    @endif
                                     <ajax class="label bg-danger-300" href="{{admurl('system/model', ['o' => 'del', 'id' => $value->id])}}" done="{{admurl('system/model')}}" prompt="warning" prompt_title="操作确认" prompt_text="删除模型不会同时删除相关联的表和文件,是否确认?" prompt_color="#FF7043" prompt_btn_text="确定删除"><i class="icon-trash"></i> 删除</ajax>
                                 </td>
                             </tr>
