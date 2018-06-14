@@ -9,7 +9,7 @@ Route::group($routeOption, function() {
     Route::any('/login', ['as' => 'login', 'uses' => 'Common@login']);
     Route::any('/logout', ['as' => 'logout', 'uses' => 'Common@logout']);
     Route::any('/{class?}/{function?}', function($class='Index', $function='index'){
-        $c = '\\EOSFM\Framework\Controllers\\'. $class ;
+        $c = '\\EOSFM\Framework\Controllers\\'. ucfirst($class) ;
         if(class_exists($c)){
             $p = new $c;
             try{

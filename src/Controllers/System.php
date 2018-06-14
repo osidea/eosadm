@@ -43,7 +43,7 @@ class System extends Common
 
     public function config()
     {
-
+        
         switch(I('get.o')){
             case 'group':
                 if(IS_POST){
