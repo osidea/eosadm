@@ -97,7 +97,7 @@
                                     @if($value->status == 0)-@endif
                                     @if($value->status == 1)已生成@endif
                                 </td>
-                                <td>
+                                <td class="hidden-sm hidden-md hidden-xs visible-lg-*">
                                     <a class="label bg-info-300" href="{{admurl('system/model', ['o' => 'save', 'id' => $value->id])}}"><i class="icon-compose"></i> 编辑</a>
                                     <a class="label bg-primary" href="{{admurl('system/field', ['model_name' => $value->model_name])}}"><i class="icon-grid-alt"></i> 字段</a>
                                     @if($value->status == 0)
@@ -107,6 +107,31 @@
                                         <ajax class="label bg-danger-300" href="{{admurl('system/model', ['o' => 'generate', 'model_name' => $value->model_name, 're' => 1])}}" done="{{admurl('system/model')}}" prompt="warning" prompt_title="操作确认" prompt_text="当前操作会导致原模型中的数据丢失,是否生成?" prompt_color="#FF7043" prompt_btn_text="生成"><i class="icon-git-compare"></i> 重新生成</ajax>
                                     @endif
                                     <ajax class="label bg-danger-300" href="{{admurl('system/model', ['o' => 'del', 'id' => $value->id])}}" done="{{admurl('system/model')}}" prompt="warning" prompt_title="操作确认" prompt_text="删除模型不会同时删除相关联的表和文件,是否确认?" prompt_color="#FF7043" prompt_btn_text="确定删除"><i class="icon-trash"></i> 删除</ajax>
+                                </td>
+                                <td class="text-center hidden-lg">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="{{admurl('system/model', ['o' => 'save', 'id' => $value->id])}}"><i class="icon-compose"></i> 编辑</a></li>
+                                                <li><a href="{{admurl('system/field', ['model_name' => $value->model_name])}}"><i class="icon-grid-alt"></i> 字段</a></li>
+                                                @if($value->status == 0)
+                                                    <li>
+                                                        <ajax href="{{admurl('system/model', ['o' => 'generate', 'model_name' => $value->model_name])}}" done="{{admurl('system/model')}}" prompt="info" prompt_title="操作确认" prompt_text="生成模型会新建相对应的数据表和模型文件,是否生成?" prompt_btn_text="生成"><i class="icon-git-compare"></i> 生成</ajax>
+                                                    </li>
+                                                @endif
+                                                @if($value->status == 1)
+                                                    <li>
+                                                        <ajax href="{{admurl('system/model', ['o' => 'generate', 'model_name' => $value->model_name, 're' => 1])}}" done="{{admurl('system/model')}}" prompt="warning" prompt_title="操作确认" prompt_text="当前操作会导致原模型中的数据丢失,是否生成?" prompt_color="#FF7043" prompt_btn_text="生成"><i class="icon-git-compare"></i> 重新生成</ajax>
+                                                    </li>
+                                                @endif
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <ajax href="{{admurl('system/model', ['o' => 'del', 'id' => $value->id])}}" done="{{admurl('system/model')}}" prompt="warning" prompt_title="操作确认" prompt_text="删除模型不会同时删除相关联的表和文件,是否确认?" prompt_color="#FF7043" prompt_btn_text="确定删除"><i class="icon-trash"></i> 删除</ajax>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                             @endforeach

@@ -52,11 +52,11 @@ class EOSFMServiceProvider extends ServiceProvider
 
         $this -> publishes([
             __DIR__. '/Config/admin.php' => config_path('admin.php'),
-        ], 'eosadm');
+        ], 'eosadm_conf');
 //
         $this -> publishes([
             __DIR__. '/Templates/assets' => public_path('resources'),
-        ], 'eosadm');
+        ], 'eosadm_res');
 //
 //        $this -> publishes([
 //            __DIR__. '/Assets/default' => public_path('resources/codex/default'),

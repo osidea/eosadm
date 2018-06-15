@@ -110,17 +110,17 @@ class eosinit extends Command
                 $bar->finish();
                 $this->info('');
                 $auth = [
-                    ['id' => 1, 'pid' => 0, 'name' => '管理控制台', 'c' => 'index', 'f' => 'index', 'o' => '', 'auth' => 0, 'status' => 1],
-                    ['id' => 910, 'pid' => 0, 'name' => '模型管理', 'c' => 'system', 'f' => 'model', 'o' => '', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 911, 'pid' => 910, 'name' => '添加/编辑模型', 'c' => 'system', 'f' => 'model', 'o' => 'save', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 912, 'pid' => 910, 'name' => '删除模型', 'c' => 'system', 'f' => 'model', 'o' => 'del', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 913, 'pid' => 910, 'name' => '生成模型', 'c' => 'system', 'f' => 'model', 'o' => 'generate', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 920, 'pid' => 0, 'name' => '字段管理', 'c' => 'system', 'f' => 'field', 'o' => '', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 921, 'pid' => 920, 'name' => '添加/编辑字段', 'c' => 'system', 'f' => 'field', 'o' => 'save', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 922, 'pid' => 920, 'name' => '删除字段', 'c' => 'system', 'f' => 'field', 'o' => 'del', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 930, 'pid' => 0, 'name' => '权限规则', 'c' => 'system', 'f' => 'auth', 'o' => '', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 931, 'pid' => 930, 'name' => '添加/编辑规则', 'c' => 'system', 'f' => 'auth', 'o' => 'save', 'auth' => 1, 'status' => 1, 'show' => 0],
-                    ['id' => 932, 'pid' => 930, 'name' => '删除规则', 'c' => 'system', 'f' => 'auth', 'o' => 'del', 'auth' => 1, 'status' => 1, 'show' => 0],
+                    ['id' => 1, 'pid' => 0, 'name' => '管理控制台', 'c' => 'index', 'f' => 'index', 'o' => '', 'auth' => 0, 'status' => 1, 'page_type' => 1],
+                    ['id' => 910, 'pid' => 0, 'name' => '模型管理', 'c' => 'system', 'f' => 'model', 'o' => '', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 1],
+                    ['id' => 911, 'pid' => 910, 'name' => '添加/编辑模型', 'c' => 'system', 'f' => 'model', 'o' => 'save', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 2],
+                    ['id' => 912, 'pid' => 910, 'name' => '删除模型', 'c' => 'system', 'f' => 'model', 'o' => 'del', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 4],
+                    ['id' => 913, 'pid' => 910, 'name' => '生成模型', 'c' => 'system', 'f' => 'model', 'o' => 'generate', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 4],
+                    ['id' => 920, 'pid' => 0, 'name' => '字段管理', 'c' => 'system', 'f' => 'field', 'o' => '', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 1],
+                    ['id' => 921, 'pid' => 920, 'name' => '添加/编辑字段', 'c' => 'system', 'f' => 'field', 'o' => 'save', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 2],
+                    ['id' => 922, 'pid' => 920, 'name' => '删除字段', 'c' => 'system', 'f' => 'field', 'o' => 'del', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 4],
+                    ['id' => 930, 'pid' => 0, 'name' => '权限规则', 'c' => 'system', 'f' => 'auth', 'o' => '', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 1],
+                    ['id' => 931, 'pid' => 930, 'name' => '添加/编辑规则', 'c' => 'system', 'f' => 'auth', 'o' => 'save', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 2],
+                    ['id' => 932, 'pid' => 930, 'name' => '删除规则', 'c' => 'system', 'f' => 'auth', 'o' => 'del', 'auth' => 1, 'status' => 1, 'show' => 0, 'page_type' => 4],
 
                 ];
                 $this->info('');

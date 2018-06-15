@@ -63,7 +63,7 @@ class EOSCheck
             $authwhere['to'] = I('get.to');
         }
         $nowpage = M('auth_rule') -> where($authwhere) -> first();
-
+//        dump(session('admin.auth')[1]);
 
         $nav = D('auth_rule') -> select($authwhere);
         View::share('nav', $nav);

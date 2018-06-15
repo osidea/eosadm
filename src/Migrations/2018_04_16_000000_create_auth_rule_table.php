@@ -18,6 +18,7 @@ class CreateAuthRuleTable extends Migration
             $table->string('name', 100)->default('');
             $table->string('icon', 11)->nullable();
             $table->string('style_type', 1)->default(0);
+            $table->string('page_type', 1)->default(1); # 1.普通 2.附属 3.设置 4.ajax
             $table->integer('pid')->default(0);
             $table->string('c')->nullable();
             $table->string('f')->nullable();

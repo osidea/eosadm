@@ -69,15 +69,16 @@
                                                         @if($value['type'] == 1)
                                                             <input type="text" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
                                                         @endif
-                                                        @if($value['type'] == 3)
-                                                            <input type="number" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
-                                                        @endif
-                                                            @if($value['type'] == 4)
-                                                                <input type="password" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
-                                                            @endif
                                                         @if($value['type'] == 2)
                                                             <textarea class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" rows="5" cols="5">{{$value['value']}}</textarea>
                                                         @endif
+                                                        @if($value['type'] == 3)
+                                                            <input type="number" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
+                                                        @endif
+                                                        @if($value['type'] == 4)
+                                                            <input type="password" class="form-control inputShowhelp" data-id="{{$key}}" name="{{$value['name']}}" value="{{$value['value']}}">
+                                                        @endif
+
                                                         @if($value['type'] == 8)
                                                             <select class="form-control inputShowhelp" name="{{$value['name']}}" data-id="{{$key}}">
                                                                 @foreach($value['extra'] as $_value)
@@ -125,12 +126,12 @@
     </div>
     <!-- /page container -->
     <script>
-        $(".editlabel").hide();
-        $(".showedit").hover(function(){
-            $("#" + $(this).data('show')).show();
-        },function(){
-            $("#" + $(this).data('show')).hide();
-        });
+//        $(".editlabel").hide();
+//        $(".showedit").hover(function(){
+//            $("#" + $(this).data('show')).show();
+//        },function(){
+//            $("#" + $(this).data('show')).hide();
+//        });
 
     </script>
 

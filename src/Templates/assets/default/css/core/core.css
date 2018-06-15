@@ -2052,6 +2052,50 @@ input[class*=bg-] + .form-control-feedback {
 .dropdown-menu > .dropdown-header > img {
   max-height: 16px;
 }
+
+
+.dropdown-menu > li > ajax {
+  padding: 8px 15px;
+  outline: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dropdown-menu > li > ajax > i,
+.dropdown-menu > .dropdown-header > i,
+.dropdown-menu > li > ajax > img,
+.dropdown-menu > .dropdown-header > img {
+  margin-right: 12px;
+  float: left;
+  margin-top: 2px;
+  top: 0;
+}
+.dropdown-menu > li > ajax > i.pull-right,
+.dropdown-menu > .dropdown-header > i.pull-right,
+.dropdown-menu > li > ajaxajax > img.pull-right,
+.dropdown-menu > .dropdown-header > img.pull-right {
+  margin-right: 0;
+  margin-left: 12px;
+}
+.dropdown-menu > li > ajax > .label,
+.dropdown-menu > .dropdown-header > .label,
+.dropdown-menu > li > ajax > .badge,
+.dropdown-menu > .dropdown-header > .badge {
+  float: left;
+  margin-right: 12px;
+}
+.dropdown-menu > li > ajax > .label.pull-right,
+.dropdown-menu > .dropdown-header > .label.pull-right,
+.dropdown-menu > li > ajax > .badge.pull-right,
+.dropdown-menu > .dropdown-header > .badge.pull-right {
+  margin-right: 0;
+  margin-left: 12px;
+}
+.dropdown-menu > li > ajax > img,
+.dropdown-menu > .dropdown-header > img {
+  max-height: 16px;
+}
+
+
 .dropdown-menu > li > label:hover,
 .dropdown-menu > li > label:focus {
   text-decoration: none;
